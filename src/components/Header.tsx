@@ -11,7 +11,7 @@ function Header() {
             <div className="header-right">
                 <ul className="flex justify-around gap-8">
                     <Link to="/"><li>Inicio</li></Link>
-                    <Link to="/"><li>Tareas</li></Link>
+                    <Link to="/tareas"><li>Tareas</li></Link>
                     <Link to="/"><li>Contáctame</li></Link>
                 </ul>
             </div>
