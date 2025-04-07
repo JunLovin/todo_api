@@ -1,8 +1,10 @@
 import React, { useState } from "react"
+import { useNavigate } from "react-router"
 
 function CreateTask() {
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
+    const navigate = useNavigate()
 
     const createTask = async () => {
         try {
@@ -23,6 +25,8 @@ function CreateTask() {
             console.log('Tarea creada')
             setTitle('')
             setDescription('')
+            alert("Se creó la tarea")
+            navigate('/tareas')
         } catch (error) {
             console.error(error)
         }

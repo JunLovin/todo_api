@@ -49,7 +49,7 @@ function TaskContainer() {
                     {tareas?.map((element, i) => {
                         return (
                             <Link to={`/tareas/${element.id}`}>
-                                <Tasks key={i} title={element.title} description={element.description}/>
+                                <Tasks key={i} title={element.title} id={element.id} description={element.description}/>
                             </Link>
                         )
                     })}
