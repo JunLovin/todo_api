@@ -12,7 +12,7 @@ function Header() {
                 <ul className="flex justify-around gap-8">
                     <Link to="/"><li>Inicio</li></Link>
                     <Link to="/tareas"><li>Tareas</li></Link>
-                    <Link to="/"><li>Contáctame</li></Link>
+                    <Link to="/contacto"><li>Contáctame</li></Link>
                 </ul>
             </div>
         </header>
