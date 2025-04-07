@@ -22,4 +22,24 @@ const findTask = (id:number) => {
     return tasks.find(task => task.id === id)
 }
 
-export { tasks, createTask, findTask }
+const deleteTask = (id:number) => {
+    const index = tasks.findIndex(task => task.id === id)
+    if (index === -1) return null
+    const deletedTask = tasks.splice(index, 1)
+    return deletedTask[0]
+}
+
+const updateTask = (id:number, title:string, description: string) => {
+    const index = tasks.findIndex(task => task.id === id)
+    if (index === -1) return null
+    const updatedTask = {
+        id: id,
+        title: title,
+        description: description,
+        completed: false,
+    }
+    tasks[index] = updatedTask
+    return tasks
+}
+
+export { tasks, createTask, findTask, deleteTask, updateTask }
