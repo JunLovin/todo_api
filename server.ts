@@ -2,22 +2,29 @@ import express from 'express'
 import morgan from 'morgan'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import path from 'path'
 const app = express()
 const PORT = process.env.PORT || 3000
-const __dirname = path.resolve()
+
+import { tasks, createTask, findTask } from './src/server/db.ts'
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/nombre', (req, res) => {
-    const nombre:string = req.body.nombre || "Usuario"
-    res.json({nombre: nombre})
+app.get('/tareas', (req, res) => {
+    res.json(tasks)
 })
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'))
+app.get('/tareas/:id', (req, res) => {
+    const id = parseInt(req.params.id)
+    const task = findTask(id)
+    res.json(task)
+})
+
+app.post('/tareas', (req, res) => {
+    const { title, description } = req.body
+    const newTask = createTask(title, description)
+    res.json(newTask)
 })
 
 app.listen(PORT, () => {
