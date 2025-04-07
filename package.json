@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "ts-node server.ts",
+    "start": "nodemon server.ts",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -16,6 +16,7 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "morgan": "^1.10.0",
+    "nodemon": "^3.1.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.0",
