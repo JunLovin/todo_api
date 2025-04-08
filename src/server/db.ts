@@ -1,45 +1,24 @@
-const tasks = [
-    {
-        id: 1,
-        title: 'Tarea 1',
-        description: 'Descripción de la tarea 1 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi dignissimos dicta maxime maiores earum excepturi sequi explicabo dolor eaque delectus, minus dolorum impedit atque qui eligendi corporis aliquam, nisi quis?',
-        completed: false
-    },
-]
+import dotenv from 'dotenv';
+import pg from 'pg';
+dotenv.config();
 
-const createTask = (title:string, description:string) => {
-    const newTask = {
-        id: tasks.length + 1,
-        title,
-        description,
-        completed: false
-    }
-    tasks.push(newTask)
-    return newTask
+const createPool = () => {
+    const newPool = new pg.Pool({
+        user: process.env.DB_USER,
+        host: process.env.DB_HOST,
+        database: process.env.DB_DATABASE,
+        password: process.env.DB_PASSWORD,
+        port: parseInt(process.env.DB_PORT || '5432'),
+        ssl: {
+            rejectUnauthorized: false
+        },
+        application_name: 'todo_api',
+        max: 10, 
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 5000,
+        maxUses: 7500,
+    })
+    return newPool
 }
 
-const findTask = (id:number) => {
-    return tasks.find(task => task.id === id)
-}
-
-const deleteTask = (id:number) => {
-    const index = tasks.findIndex(task => task.id === id)
-    if (index === -1) return null
-    const deletedTask = tasks.splice(index, 1)
-    return deletedTask[0]
-}
-
-const updateTask = (id:number, title:string, description: string) => {
-    const index = tasks.findIndex(task => task.id === id)
-    if (index === -1) return null
-    const updatedTask = {
-        id: id,
-        title: title,
-        description: description,
-        completed: false,
-    }
-    tasks[index] = updatedTask
-    return tasks
-}
-
-export { tasks, createTask, findTask, deleteTask, updateTask }
+export const pool = createPool()

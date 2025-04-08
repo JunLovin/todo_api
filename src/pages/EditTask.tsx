@@ -22,8 +22,7 @@ function EditTask() {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        id: id,
-                        title: title,
+                        name: title,
                         description: description
                     })
                 })
@@ -32,7 +31,7 @@ function EditTask() {
                     throw error
                 }
                 const respuestaJson = await respuesta.json()
-                console.log("Se actualizó correctamente la tarea, " + respuestaJson)
+                console.log(respuestaJson)
                 alert("Tarea actualizada")
             } catch (error) {
                 console.error(error)

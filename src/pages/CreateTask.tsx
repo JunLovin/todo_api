@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router"
+import { motion } from "framer-motion"
 
 function CreateTask() {
     const [title, setTitle] = useState('')
@@ -14,7 +15,7 @@ function CreateTask() {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    title: title,
+                    name: title,
                     description: description
                 })
             })
@@ -22,10 +23,8 @@ function CreateTask() {
                 const error = new Error('Error al crear la tarea')
                 throw error
             } 
-            console.log('Tarea creada')
-            setTitle('')
-            setDescription('')
-            alert("Se creó la tarea")
+            const respuestaJson = await respuesta.json()
+            console.log(respuestaJson)
             navigate('/tareas')
         } catch (error) {
             console.error(error)
@@ -42,10 +41,21 @@ function CreateTask() {
 
     return (
         <>
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: '-20%',
+            }}
+            animate={{
+                opacity: 1,
+                x: 0
+            }}
+            exit={{ opacity: 0 }}
+        >
         <div className="create-task flex justify-center">
             <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center gap-4">
                 <div className="title-task flex flex-col items-center gap-2">
-                    <label htmlFor="title" className="font-semibold text-2xl">Título de la nueva tarea:</label>
+                    <label htmlFor="title" className="font-semibold text-2xl">Nombre de la nueva tarea:</label>
                     <input type="text" value={title} onChange={handleTitle} id="title" name="title" className="border border-black rounded-xl px-2 outline-none"/>
                 </div>
                 <div className="description-task flex flex-col items-center gap-2">
@@ -57,6 +67,7 @@ function CreateTask() {
                 </div>
             </form>
         </div>
+        </motion.div>
         </>
     )
 }
