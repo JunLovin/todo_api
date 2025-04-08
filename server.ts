@@ -5,40 +5,21 @@ import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 3000
 
-import { tasks, createTask, findTask, deleteTask, updateTask } from './src/server/db.ts'
+import { obtenerTodasLasTareas, obtenerTareaPorId, crearNuevaTarea, eliminarTareaPorId, actualizarTareaPorId } from './src/server/utils.ts'
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/tareas', (req, res) => {
-    res.json(tasks)
-})
+app.get('/tareas', obtenerTodasLasTareas)
 
-app.get('/tareas/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    const task = findTask(id)
-    res.json(task)
-})
+app.get('/tareas/:id', obtenerTareaPorId)
 
-app.post('/tareas', (req, res) => {
-    const { title, description } = req.body
-    const newTask = createTask(title, description)
-    res.json(newTask)
-})
+app.post('/tareas', crearNuevaTarea)
 
-app.put('/tareas/:id', (req, res) => {
-    const { title, description } = req.body
-    const id = parseInt(req.params.id)
-    updateTask(id, title, description)
-    res.json(tasks)
-})
+app.put('/tareas/:id', actualizarTareaPorId)
 
-app.delete('/tareas/:id', (req, res) => {
-    const id = parseInt(req.params.id)
-    deleteTask(id)
-    res.json(tasks)
-})
+app.delete('/tareas/:id', eliminarTareaPorId)
 
 app.listen(PORT, () => {
     console.log(`El servidor está funcionando en el puerto ${PORT}`)
