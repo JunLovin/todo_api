@@ -1,8 +1,20 @@
 import React from "react"
+import { motion } from "framer-motion"
 
 function Contact() {
     return (
         <>
+        <motion.div
+            initial={{
+                opacity: 0,
+                x: '-20%',
+            }}
+            animate={{
+                opacity: 1,
+                x: 0
+            }}
+            exit={{ opacity: 0 }}
+        >
         <div className="contact-container w-full min-h-[90dvh] flex flex-col items-center justify-center">
             <div className="contact-title w-full flex justify-center">
                 <h2 className="text-5xl font-bold leading-normal">CONTÁCTAME</h2>
@@ -28,6 +40,7 @@ function Contact() {
                 </a>
             </div>
         </div>
+        </motion.div>
         </>
     )
 }
