@@ -16,7 +16,6 @@ function Tasks({ title, description, id }) {
                 setIsDeleting(false)
                 throw error
             }
-            location.reload()
         } catch (error) {
             console.error(error)
         }
@@ -41,7 +40,7 @@ function Tasks({ title, description, id }) {
                             }
                         }}
                     >
-                        <div className="task w-full h-max px-4 py-2 hover:bg-neutral-300 transition-colors duration-300 flex flex-col gap-2 cursor-pointer relative" onMouseEnter={() => {
+                        <div className="task w-full h-max px-4 py-2 hover:bg-[#F3F4F6] dark:hover:bg-[#1F2937] transition-colors duration-300 flex flex-col gap-2 cursor-pointer relative" onMouseEnter={() => {
                             deleteTaskRef.current.classList.replace("opacity-0", "opacity-100")
                         }} onMouseLeave={() => {
                             deleteTaskRef.current.classList.replace("opacity-100", "opacity-0")
@@ -50,9 +49,9 @@ function Tasks({ title, description, id }) {
                                 <h2 className="leading-normal text-xl font-semibold">{title}</h2>
                             </div>
                             <div className="task-description w-[90%]">
-                                <p>{description?.substring(0, 80) + '...'}</p>
+                                <p>{description?.length >= 80 ? description?.substring(0, 80) + '...' : description}</p>
                             </div>
-                            <div className="delete-task absolute right-0 transition-all duration-200 opacity-0 top-0 h-full w-12 bg-red-100 flex justify-center items-center z-10 text-red-400 cursor-pointer" onClick={deleteTask} ref={deleteTaskRef}
+                            <div className="delete-task absolute right-0 transition-all duration-200 opacity-0 top-0 h-full w-12 bg-[#FEF2F2] dark:bg-[#7F1D1D] flex justify-center items-center z-10 text-[#EF4444] dark:text-[#F87171] cursor-pointer" onClick={deleteTask} ref={deleteTaskRef}
                             >
                                 <motion.svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-x"
                                     whileHover={{
