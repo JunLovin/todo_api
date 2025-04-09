@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '@components/Header'
 import { Outlet, useLocation } from 'react-router-dom'
-import AskName from '@components/AskName'
+import Principal from '@components/Principal'
 
 function App() {
   const location = useLocation()
@@ -12,7 +12,7 @@ function App() {
     <Header />
     {home && (
       <>
-      <AskName />
+      <Principal />
       </>
     )}
     <Outlet />
