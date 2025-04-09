@@ -40,7 +40,7 @@ function TaskContainer() {
     if (isLoading) {
         return (
             <div className="task-container flex">
-                <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-neutral-300 flex flex-col">
+                <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-[#E5E7EB] dark:border-[#374151] flex flex-col">
                     <div className="left-task-header w-full h-14 flex justify-center items-center relative">
                         <h2 className="text-2xl font-semibold">Mis Tareas</h2>
                         <div className="left-task-plus absolute right-4 bottom-3 cursor-pointer">
@@ -52,13 +52,13 @@ function TaskContainer() {
                         {[1, 2, 3, 4, 5].map((_, index) => (
                             <motion.div 
                                 key={index}
-                                className="p-4 border-b border-neutral-200"
+                                className="p-4 border-b border-[#E5E7EB] dark:border-[#374151]"
                                 initial={{ opacity: 0.6 }}
                                 animate={{ opacity: [0.6, 0.8, 0.6] }}
                                 transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
                             >
-                                <div className="h-5 w-3/4 bg-gray-200 rounded mb-2"></div>
-                                <div className="h-4 w-5/6 bg-gray-200 rounded"></div>
+                                <div className="h-5 w-3/4 bg-[#E5E7EB] dark:bg-[#374151] rounded mb-2"></div>
+                                <div className="h-4 w-5/6 bg-[#E5E7EB] dark:bg-[#374151] rounded"></div>
                             </motion.div>
                         ))}
                     </div>
@@ -90,7 +90,7 @@ function TaskContainer() {
                     })}
                 </div>
             </div>
-            <div className="right-task w-[70%]">
+            <div className="right-task w-[70%] flex justify-center items-center">
                 {task &&
                     <TaskDescription />
                 }

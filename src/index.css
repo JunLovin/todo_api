@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 li {
     position: relative;
 }
@@ -11,10 +13,18 @@ li::before {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: #000;
+    background-color: #F59E0B;
     transition: width 0.3s ease;
+}
+
+.dark li::before {
+    background-color: #FBBF24;
 }
 
 li:hover::before {
     width: 100%; 
+}
+
+li.darkMode:hover::before { 
+    width: 0;
 }
