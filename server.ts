@@ -5,7 +5,7 @@ import cors from 'cors'
 const app = express()
 const PORT = process.env.PORT || 3000
 
-import { obtenerTodasLasTareas, obtenerTareaPorId, crearNuevaTarea, eliminarTareaPorId, actualizarTareaPorId } from './src/server/utils.ts'
+import { obtenerTodasLasTareas, obtenerTareaPorId, crearNuevaTarea, eliminarTareaPorId, actualizarTareaPorId, completarTareaPorId } from './src/server/utils.ts'
 
 app.use(morgan('dev'))
 app.use(bodyParser.json())
@@ -18,6 +18,8 @@ app.get('/tareas/:id', obtenerTareaPorId)
 app.post('/tareas', crearNuevaTarea)
 
 app.put('/tareas/:id', actualizarTareaPorId)
+
+app.put('/tareas/:id/completar', completarTareaPorId)
 
 app.delete('/tareas/:id', eliminarTareaPorId)
 

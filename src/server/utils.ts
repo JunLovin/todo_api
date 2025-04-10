@@ -34,14 +34,25 @@ export const crearNuevaTarea = async (req, res) => {
 
 export const actualizarTareaPorId = async (req, res) => {
     const { id } = req.params
-    const { name, description } = req.body
-    const { rowCount } = await pool.query('UPDATE tasks SET name = $1, description = $2 WHERE id = $3', [name, description, id])
+    const { name, description, completada } = req.body
+    const { rowCount } = await pool.query('UPDATE tasks SET name = $1, description = $2, completada = $3 WHERE id = $4', [name, description, completada, id])
 
     if (rowCount !== 1) {
         res.status(404).json({ error: "No se encontró la tarea :(" })
     }
 
     res.status(200).json({ success: "Se actualizó la tarea correctamente." })
+}
+
+export const completarTareaPorId = async (req, res) => {
+    const { id } = req.params
+    const { rowCount } = await pool.query('UPDATE tasks SET completed = true WHERE id = $1', [id])
+
+    if (rowCount!== 1) {
+        res.status(404).json({ error: "No se encontró la tarea :(" })
+    }
+
+    res.status(200).json({ success: "Se completó la tarea correctamente." })
 }
 
 export const eliminarTareaPorId = async (req, res) => {
