@@ -1,18 +1,12 @@
-import React, { useState } from "react"
-import { useParams } from "react-router"
+import React, { useState, useEffect } from "react"
+import { useParams, useNavigate } from "react-router"
 
 function EditTask() {
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [tareaInfo, setTareaInfo] = useState<any>(null)
     const { id } = useParams()
-
-    const handleTitle = (e) => {
-        setTitle(e.target.value)
-    }
-
-    const handleDescription = (e) => {
-        setDescription(e.target.value)
-    }
+    const navigate = useNavigate()
 
         const updateTask = async () => {
             try {
@@ -33,22 +27,57 @@ function EditTask() {
                 const respuestaJson = await respuesta.json()
                 console.log(respuestaJson)
                 alert("Tarea actualizada")
+                navigate('/tareas')
             } catch (error) {
                 console.error(error)
             }
         }
 
+        const obtenerTarea = async () => {
+            try {
+                const respuesta = await fetch(`http://localhost:3000/tareas/${id}`, { method: 'GET' })
+                if (!respuesta.ok) {
+                    const error = new Error("Hubo un error al obtener la tarea")
+                    throw error
+                }
+                const respuestaJson = await respuesta.json()
+                setTareaInfo(respuestaJson)
+            } catch (error) {
+                console.error(error)
+            }
+        }
+
+        const handleTitle = (e) => {
+            setTitle(e.target.value)
+        }
+    
+        const handleDescription = (e) => {
+            setDescription(e.target.value)
+        }
+        
+        useEffect(() => {
+            obtenerTarea()
+        }, [])
+
+        useEffect(() => {
+            if (tareaInfo !== null) {
+                setTitle(tareaInfo.name)
+                setDescription(tareaInfo.description)
+            }
+        }, [tareaInfo])
+
+
     return (
         <>
-            <div className="create-task flex justify-center">
-                <form onSubmit={(e) => e.preventDefault()} className="flex flex-col items-center gap-4">
+            <div className="flex justify-center create-task">
+                <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-4 items-center">
                     <h2 className="text-3xl font-semibold text-center">Actualizar Tarea</h2>
-                    <div className="title-task flex flex-col items-center gap-2">
-                        <label htmlFor="title" className="font-semibold text-2xl">Titulo:</label>
+                    <div className="flex flex-col gap-2 items-center title-task">
+                        <label htmlFor="title" className="text-2xl font-semibold">Titulo:</label>
                         <input type="text" value={title} onChange={handleTitle} id="title" name="title" className="border border-[#E5E7EB] dark:border-[#374151] rounded-md px-4 py-2 w-80 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] dark:focus:ring-[#A78BFA]" />
                     </div>
-                    <div className="description-task flex flex-col items-center gap-2">
-                        <label htmlFor="description" className="font-semibold text-2xl">Descripción de la nueva tarea:</label>
+                    <div className="flex flex-col gap-2 items-center description-task">
+                        <label htmlFor="description" className="text-2xl font-semibold">Descripción de la nueva tarea:</label>
                         <textarea name="description" id="description" value={description} onChange={handleDescription} className="w-[600px] h-[500px] resize-none rounded-xl border border-[#E5E7EB] dark:border-[#374151] px-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] dark:focus:ring-[#A78BFA]"></textarea>
                     </div>
                     <div className="submit">
