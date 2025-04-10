@@ -39,11 +39,11 @@ function TaskContainer() {
 
     if (isLoading) {
         return (
-            <div className="task-container flex">
+            <div className="flex task-container">
                 <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-[#E5E7EB] dark:border-[#374151] flex flex-col">
-                    <div className="left-task-header w-full h-14 flex justify-center items-center relative">
+                    <div className="flex relative justify-center items-center w-full h-14 left-task-header">
                         <h2 className="text-2xl font-semibold">Mis Tareas</h2>
-                        <div className="left-task-plus absolute right-4 bottom-3 cursor-pointer">
+                        <div className="absolute bottom-3 right-4 cursor-pointer left-task-plus">
                             <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                         </div>
                     </div>
@@ -70,12 +70,12 @@ function TaskContainer() {
     return (
         <>
 
-        <div className="task-container flex">
+        <div className="flex task-container">
             <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-neutral-300 flex flex-col">
-                <div className="left-task-header w-full h-14 flex justify-center items-center relative">
+                <div className="flex relative justify-center items-center w-full h-14 left-task-header">
                     <h2 className="text-2xl font-semibold">Mis Tareas</h2>
                     <Link to="/tareas/crear">
-                    <div className="left-task-plus absolute right-4 bottom-3 cursor-pointer">
+                    <div className="absolute bottom-3 right-4 cursor-pointer left-task-plus">
                         <svg  xmlns="http://www.w3.org/2000/svg"  width="28"  height="28"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round"  className="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                     </div>
                     </Link>
@@ -90,7 +90,7 @@ function TaskContainer() {
                     })}
                 </div>
             </div>
-            <div className="right-task w-[70%] flex justify-center items-center">
+            <div className="right-task w-[70%] mx-auto flex justify-center items-center">
                 {task &&
                     <TaskDescription />
                 }
