@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router"
 import { motion, AnimatePresence } from "framer-motion"
+import DoneTask from './DoneTask'
 
 function TaskDescription() {
     const { id } = useParams()
@@ -45,7 +46,7 @@ function TaskDescription() {
 
     if (isLoading || tareaInfo === null) {
         return (
-            <div className="task-descriptions-placeholder gap-2 w-full h-full flex flex-col py-4 items-center justify-center relative">
+            <div className="flex relative flex-col gap-2 justify-center items-center py-4 w-full h-full task-descriptions-placeholder">
                 <motion.div
                     className="w-3/4 h-[80vh] bg-[#E5E7EB] dark:bg-[#374151] rounded-lg flex flex-col items-center justify-center"
                     initial={{ opacity: 0.6 }}
@@ -87,10 +88,10 @@ function TaskDescription() {
             }
         }}
         transition={{ duration: 0.5 }}
-        className="task-descriptions w-full h-full flex flex-col py-4 items-center justify-center relative"
+        className="flex relative flex-col justify-center items-center py-4 w-full h-full task-descriptions"
         >
             <div className="task-description-container w-3/4 min-h-[80vh] bg-[#F3F4F6] dark:bg-[#1F2937] rounded-lg p-6 flex flex-col items-center gap-2">
-                <motion.div className="edit-task flex justify-center gap-2 items-center w-max h-max px-4 py-2 absolute bg-blue-100 text-blue-500 position left-4 top-4 cursor-pointer active:bg-blue-200 transition-colors duration-200 rounded-xl" onClick={() => {
+                <motion.div className="flex absolute top-4 left-4 gap-2 justify-center items-center px-4 py-2 w-max text-blue-500 bg-blue-100 rounded-xl transition-colors duration-200 cursor-pointer edit-task h-max position active:bg-blue-200" onClick={() => {
                     navigate(`/tareas/${id}/editar`)
                 }}
                 initial={{ opacity: 0, x: -20 }}
@@ -108,6 +109,7 @@ function TaskDescription() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
                     <span className="font-semibold">Editar Tarea</span>
                 </motion.div>
+                <DoneTask id={id}/>
                 <motion.div className="task-des-title"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{
@@ -119,9 +121,9 @@ function TaskDescription() {
                     }
                 }}
                 >
-                    <h2 className="text-4xl font-bold text-center leading-normal">{tareaInfo.name}</h2>
+                    <h2 className="text-4xl font-bold leading-normal text-center">{tareaInfo.name}</h2>
                 </motion.div>
-                <motion.div className="task-des-des text-center leading-normal"
+                <motion.div className="leading-normal text-center task-des-des"
                 initial={{
                     opacity: 0,
                     y: 10
