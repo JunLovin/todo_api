@@ -3,8 +3,9 @@ import { motion } from "framer-motion"
 import { useNavigate } from "react-router"
 
 function Principal() {
-    const [name, setName] = useState('')
-    const [description, setDescription] = useState('')
+    const [name, setName] = useState<string>('')
+    const [description, setDescription] = useState<string>('')
+    const [error, setError] = useState<boolean>(false)
     const navigate = useNavigate()
 
     const handleName = (e) => {
@@ -16,6 +17,15 @@ function Principal() {
     }
 
     const createTask = async () => {
+
+        if (name === '' || !name) {
+            const error = new Error("El nombre de la tarea no puede estar vacía")
+            setError(true)
+            throw error
+        } else {
+            setError(false)
+        }
+
         try {
             const respuesta = await fetch(`http://localhost:3000/tareas`, {
                 method: 'POST',
@@ -24,7 +34,7 @@ function Principal() {
                 },
                 body: JSON.stringify({
                     name: name,
-                    description: description
+                    descripstion: description
                 })
             })
             if (!respuesta.ok) {
@@ -72,9 +82,12 @@ function Principal() {
                 <div className="principal-right flex flex-col gap-3">
                     <h2 className="text-5xl font-extrabold leading-normal">Crea una nueva tarea</h2>
                     <form onSubmit={(e) => e.preventDefault()} className="flex flex-col gap-3">
-                        <div className="name flex flex-col gap-2 items-center">
+                        <div className={`name flex flex-col gap-2 items-center relative ${error ? 'mb-4' : 'mb-0'}`}>
                             <label htmlFor="name" className="font-semibold text-xl">Nombre de la tarea:</label>
                             <input type="text" id="name" placeholder="Ir de compras..." name="name" value={name} onChange={handleName} className="border border-[#E5E7EB] dark:border-[#374151] rounded-md px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] dark:focus:ring-[#A78BFA]"/>
+                            { error && (
+                                <label htmlFor="name" className="text-red-400 font-semibold absolute left-0 -bottom-5.5">El nombre de la tarea no puede estar vacía</label>
+                            ) }
                         </div>
                         <div className="description flex flex-col gap-2 items-center">
                             <label htmlFor="description" className="font-semibold text-xl">Descripción de la tarea:</label>
