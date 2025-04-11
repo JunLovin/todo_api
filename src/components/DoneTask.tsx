@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
-function DoneTask({ id }: { id: string | number | undefined }) {
+function DoneTask({ id, done = false }: { id: string | number | undefined, done: boolean }) {
     const [tareaInfo, setTareaInfo] = useState(null)
+    const [exito, setExito] = useState<boolean>(false)
 
-    const completarTarea = async (id) => {
+    const completarTarea = async (id: Number | String) => {
         try {
             const respuesta = await fetch(`http://localhost:3000/tareas/${id}/completar`, {
                 method: 'PUT',
@@ -18,7 +19,8 @@ function DoneTask({ id }: { id: string | number | undefined }) {
             }
             const data = await respuesta.json()
             if (data.success) {
-                alert(data.success)
+                setExito(true)
+                setTimeout(() =>  setExito(false),3000)
             }
             setTareaInfo(data)
             console.log(data)
@@ -50,6 +52,7 @@ function DoneTask({ id }: { id: string | number | undefined }) {
                         stiffness: 500,
                         damping: 30
                     }}
+                    disabled={done}
                     onClick={() => completarTarea(id)}
                 >
                     <span>Completada</span>
@@ -74,6 +77,41 @@ function DoneTask({ id }: { id: string | number | undefined }) {
                     </motion.svg>
                 </motion.button>
             </div>
+            <AnimatePresence>
+                {exito && (
+                    <motion.div 
+                        className="fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg z-50"
+                        initial={{ opacity: 0, y: 50, scale: 0.3 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.5 }}
+                        transition={{
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 25
+                        }}
+                    >
+                        <div className="flex items-center">
+                            <motion.div
+                                className="mr-3 bg-green-500 rounded-full p-1"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1, rotate: 360 }}
+                                transition={{ delay: 0.2, duration: 0.5 }}
+                            >
+                                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </motion.div>
+                            <motion.p 
+                                initial={{ x: 20, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ delay: 0.3 }}
+                            >
+                                {"¡Tarea completada con éxito!"}
+                            </motion.p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </>
     )
 }
