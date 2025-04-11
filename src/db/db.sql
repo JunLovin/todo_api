@@ -13,7 +13,7 @@ VALUES ('Tarea 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 -- ? Tabla de tareas ya completadas
 CREATE TABLE IF NOT EXISTS completedTasks (
     id SERIAL PRIMARY KEY,
-    original_task_id INTEGER UIQUE NOT NULL,
+    original_task_id INTEGER UNIQUE NOT NULL,
     created_at TIMESTAMP,
     completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR(255) NOT NULL,
