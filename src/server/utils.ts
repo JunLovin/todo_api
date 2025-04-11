@@ -64,3 +64,16 @@ export const eliminarTareaPorId = async (req, res) => {
     }
     res.status(204).json({ success: "Se eliminó la tarea" })
 }
+
+// ? ENDPOINTS PARA TAREAS COMPLETADAS
+
+export const obtenerTodasLasTareasCompletadas = async (req, res) => {
+    const { rows } = await pool.query('SELECT * FROM "completedTasks"')
+
+    if (rows.length === 0) {
+        res.status(404).json({ error: "No se encontraron las tareas completadas :(" })
+        return
+    }
+
+    res.status(200).json(rows)
+}
