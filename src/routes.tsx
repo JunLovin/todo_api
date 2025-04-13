@@ -4,12 +4,21 @@ import TaskContainer from '@pages/TaskContainer'
 import CreateTask from '@pages/CreateTask'
 import Contact from '@pages/Contact'
 import EditTask from '@pages/EditTask'
+import CompletedTasks from './components/CompletedTasks'
 
 type Route = [
     {
         path: string,
         element: React.ReactNode,
         children: [
+            {
+                path: string,
+                element: React.ReactNode,
+            },
+            {
+                path: string,
+                element: React.ReactNode,
+            },
             {
                 path: string,
                 element: React.ReactNode,
@@ -46,6 +55,14 @@ const routes: Route = [
             {
                 path: '/tareas/:id',
                 element: <TaskContainer />
+            },
+            {
+                path: '/tareascompletadas',
+                element: <CompletedTasks />
+            },
+            {
+                path: '/tareascompletadas/:id',
+                element: <CompletedTasks />
             },
             {
                 path: '/tareas/crear',

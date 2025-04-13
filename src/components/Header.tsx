@@ -15,11 +15,12 @@ function Header() {
                     <h1 className="text-3xl font-bold">ToDo Api</h1>
                 </div>
                 <div className="header-right">
-                    <ul className="flex justify-around items-center gap-8">
+                    <ul className="flex gap-8 justify-around items-center">
                         <Link to="/" className="text-white"><li>Inicio</li></Link>
                         <Link to="/tareas" className="text-white"><li>Tareas</li></Link>
+                        <Link to="/tareascompletadas" className="text-white"><li>Tareas completadas</li></Link>
                         <Link to="/contacto" className="text-white"><li>Contáctame</li></Link>
-                        <li className="darkMode cursor-pointer" onClick={() => {
+                        <li className="cursor-pointer darkMode" onClick={() => {
                             document.body.classList.toggle('dark')
                             toggleDarkMode()
                         }}>

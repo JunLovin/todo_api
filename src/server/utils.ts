@@ -80,9 +80,9 @@ export const obtenerTodasLasTareasCompletadas = async (req, res) => {
 
 export const obtenerTareaCompletadaPorId = async (req, res) => {
     const { id } = req.params
-    const { rows } = await pool.query('SELECT * FROM "completedTasks" WHERE id = $1', [id])
+    const { rows, rowCount } = await pool.query('SELECT * FROM "completedTasks" WHERE id = $1', [id])
 
-    if (rows.length === 0) {
+    if (rowCount !== 1) {
         res.status(404).json({ error: "No se encontró la tarea :(" })
         return
     }
