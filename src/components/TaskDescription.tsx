@@ -33,7 +33,6 @@ function TaskDescription() {
             }
             const data = await respuesta.json()
             setTareaInfo(data)
-            console.log(data)
             setIsLoading(false)
         } catch (error) {
             setIsLoading(false)
