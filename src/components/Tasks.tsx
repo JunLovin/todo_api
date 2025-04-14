@@ -1,23 +1,35 @@
 import React, { useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-function Tasks({ title, description, id }) {
+function Tasks({ title, description, id, completed = false }: { title: string, description: string, id: number, completed: boolean}) {
     const deleteTaskRef = useRef<any>(null)
     const [isDeleting, setIsDeleting] = useState<boolean>(false)
 
     const deleteTask = async () => {
         try {
             setIsDeleting(true)
-            const respuesta = await fetch(`http://localhost:3000/tareas/${id}`, {
-                method: 'DELETE'
-            })
-            if (!respuesta.ok) {
-                const error = new Error("Hubo un error al eliminar la tarea.")
-                setIsDeleting(false)
-                throw error
+            let respuesta;
+            
+            if (!completed) {
+                respuesta = await fetch(`http://localhost:3000/tareas/${id}`, {
+                    method: 'DELETE'
+                })
+            } else {
+                respuesta = await fetch(`http://localhost:3000/tareascompletadas/${id}`, {
+                    method: 'DELETE'
+                })
             }
+            
+            if (!respuesta.ok) {
+                throw new Error("Hubo un error al eliminar la tarea.")
+            }
+            
+            console.log("Tarea eliminada correctamente");
+            
         } catch (error) {
-            console.error(error)
+            console.error("Error:", error);
+            setIsDeleting(false); 
+            alert("No se pudo eliminar la tarea. Por favor, intenta de nuevo.");
         }
     }
 
@@ -46,7 +58,7 @@ function Tasks({ title, description, id }) {
                             deleteTaskRef.current.classList.replace("opacity-100", "opacity-0")
                         }}>
                             <div className="task-title">
-                                <h2 className="leading-normal text-xl font-semibold">{title}</h2>
+                                <h2 className="text-xl font-semibold leading-normal">{title}</h2>
                             </div>
                             <div className="task-description w-[90%]">
                                 <p>{description?.length >= 80 ? description?.substring(0, 80) + '...' : description}</p>
