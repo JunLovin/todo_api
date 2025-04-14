@@ -73,7 +73,7 @@ function TaskContainer() {
     return (
         <>
             <div className="flex task-container">
-                <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-neutral-300 flex flex-col">
+                <div className="left-task w-[400px] min-h-[93dvh] border-r-2 border-neutral-300  transition-colors duration-200 dark:border-[#1F2937] flex flex-col">
                     <div className="flex relative justify-center items-center w-full h-14 left-task-header">
                         <h2 className="text-2xl font-semibold">Mis Tareas</h2>
                         <Link to="/tareas/crear">
