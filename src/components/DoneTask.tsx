@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { useNavigate } from 'react-router'
 
 function DoneTask({ id, done = false }: { id: string | number | undefined, done: boolean }) {
     const [tareaInfo, setTareaInfo] = useState(null)
     const [exito, setExito] = useState<boolean>(false)
+    const navigate = useNavigate()
 
-    const completarTarea = async (id: Number | String) => {
+    const completarTarea = async (id: number | string) => {
         try {
             const respuesta = await fetch(`http://localhost:3000/tareas/${id}/completar`, {
                 method: 'PUT',
@@ -21,6 +23,7 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
             if (data.success) {
                 setExito(true)
                 setTimeout(() =>  setExito(false),3000)
+                setTimeout(() => navigate('/tareascompletadas'), 1000)
             }
             setTareaInfo(data)
             console.log(data)
@@ -53,7 +56,7 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
                         damping: 30
                     }}
                     disabled={done}
-                    onClick={() => completarTarea(id)}
+                    onClick={() => completarTarea(Number(id))}
                 >
                     <span>Completada</span>
                     <motion.svg
@@ -80,7 +83,7 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
             <AnimatePresence>
                 {exito && (
                     <motion.div 
-                        className="fixed bottom-4 right-4 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded shadow-lg z-50"
+                        className="fixed right-4 bottom-4 z-50 p-4 text-green-700 bg-green-100 rounded border-l-4 border-green-500 shadow-lg"
                         initial={{ opacity: 0, y: 50, scale: 0.3 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.5 }}
@@ -92,7 +95,7 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
                     >
                         <div className="flex items-center">
                             <motion.div
-                                className="mr-3 bg-green-500 rounded-full p-1"
+                                className="p-1 mr-3 bg-green-500 rounded-full"
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1, rotate: 360 }}
                                 transition={{ delay: 0.2, duration: 0.5 }}
