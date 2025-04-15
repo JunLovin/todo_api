@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router'
 
-function DoneTask({ id, done = false }: { id: string | number | undefined, done: boolean }) {
+function DoneTask({ id }: { id: string | number | undefined }) {
     const [tareaInfo, setTareaInfo] = useState(null)
     const [exito, setExito] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -40,9 +40,9 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
 
     return (
         <>
-            <div className="absolute top-2 right-4 done-task-button">
+            <div className="absolute top-4 right-7 done-task-button">
                 <motion.button
-                    className="flex items-center gap-2 px-4 py-2 bg-[#10B981] dark:bg-[#34D399] text-white rounded-md shadow-md cursor-pointer"
+                    className="flex items-center gap-2 rounded-xl px-4 py-2 bg-[#10B981] dark:bg-[#34D399] text-white shadow-md cursor-pointer"
                     whileHover={{
                         scale: 1.05,
                         boxShadow: "0px 5px 15px rgba(16, 185, 129, 0.4)"
@@ -55,7 +55,6 @@ function DoneTask({ id, done = false }: { id: string | number | undefined, done:
                         stiffness: 500,
                         damping: 30
                     }}
-                    disabled={done}
                     onClick={() => completarTarea(Number(id))}
                 >
                     <span>Completada</span>
