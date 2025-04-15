@@ -83,7 +83,7 @@ function TaskContainer() {
                         </Link>
                     </div>
                     {
-                    <div className="tasks-container" onClick={activeTask}>
+                    <div className="overflow-hidden tasks-container" onClick={activeTask}>
                         {tareas?.map((element, i) => {
                             return (
                                 <Link to={`/tareas/${element.id}`} key={i}>
