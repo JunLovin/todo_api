@@ -95,8 +95,8 @@ function TaskDescription() {
         transition={{ duration: 0.5 }}
         className="flex relative flex-col justify-center items-center py-4 w-full h-full task-descriptions"
         >
-            <div className="task-description-container w-3/4 min-h-[80vh] bg-[#F3F4F6] dark:bg-[#1F2937] rounded-lg p-6 flex flex-col items-center gap-2 transition-colors duration-200">
-                <motion.div className="flex absolute top-4 left-4 gap-2 justify-center items-center px-4 py-2 w-max text-blue-500 bg-blue-100 rounded-xl transition-colors duration-200 cursor-pointer edit-task h-max position active:bg-blue-200" onClick={() => {
+            <div className="task-description-container w-3/4 min-h-[80vh] bg-[#F3F4F6] dark:bg-[#1F2937] rounded-lg p-6 flex flex-col justify-center items-center gap-4 transition-colors duration-200">
+                <motion.div className="flex absolute top-4 left-4 gap-2 justify-center items-center px-4 py-2 w-max text-blue-500 bg-blue-100 rounded-xl shadow-md transition-colors duration-200 cursor-pointer edit-task h-max position active:bg-blue-200" onClick={() => {
                     navigate(`/tareas/${id}/editar`)
                 }}
                 initial={{ opacity: 0, x: -20 }}
@@ -108,7 +108,11 @@ function TaskDescription() {
                         duration: 0.5
                     }
                 }}
-                whileHover={{ scale: 1.05, backgroundColor: '#dbeafe' }}
+                whileHover={{
+                    scale: 1.05,
+                    backgroundColor: '#dbeafe',
+                    boxShadow: "0px 5px 15px rgba(16, 185, 129, 0.4)"
+                }}
                 whileTap={{ scale: 0.95 }}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
@@ -153,8 +157,7 @@ function TaskDescription() {
                     opacity: 1,
                     scale: 1,
                     transition: {
-                        delay: 0.3,
-                        duration: 0.5
+                        duration: 0.2
                     }
                 }}
                 whileHover={{

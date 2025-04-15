@@ -84,7 +84,7 @@ function CompletedTaskDescription() {
         transition={{ duration: 0.5 }}
         className="flex relative flex-col justify-center items-center py-4 w-full h-full task-descriptions"
         >
-            <div className="task-description-container w-3/4 min-h-[80vh] bg-[#F3F4F6] dark:bg-[#1F2937] rounded-lg p-6 flex flex-col items-center gap-2 transition-colors duration-200">
+            <div className="task-description-container w-3/4 min-h-[80vh] bg-[#F3F4F6] dark:bg-[#1F2937] rounded-lg p-6 flex flex-col justify-center gap-4 items-center transition-colors duration-200">
                 <motion.div className="task-des-title"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{
@@ -123,8 +123,7 @@ function CompletedTaskDescription() {
                     opacity: 1,
                     scale: 1,
                     transition: {
-                        delay: 0.3,
-                        duration: 0.5
+                        duration: 0.2
                     }
                 }}
                 whileHover={{
